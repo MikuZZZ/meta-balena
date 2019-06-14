@@ -1,0 +1,33 @@
+#!/bin/sh
+
+#
+# Script which handles balenaEngine storage migration to overlayfs
+# ... and rollback
+#
+
+set -o errexit
+
+USER_APP_STORAGE="/mnt/data/docker"
+HOST_APP_STORAGE="/mnt/sysroot/inactive/balena"
+
+DURING_UPDATE=${DURING_UPDATE:-0}
+
+# TODO detect if we are actually going to boot into overlay and only migrate if that's the case
+
+if [ "$DURING_UPDATE" = 1 ] && [ ! -d "$USER_APP_STORAGE/overlay2" ]; then
+	printf "[INFO] balena_migrate_storage: Migrating user storage to overlayfs... \n"
+	env BALENA_A2O_STORAGE_ROOT=$USER_APP_STORAGE a2o-migrate -debug -migrate
+	printf "[INFO] balena_migrate_storage: Migrating hostapp storage to overlayfs... \n"
+	env BALENA_A2O_STORAGE_ROOT=$HOST_APP_STORAGE a2o-migrate -debug -migrate
+	printf "[INFO] balena_migrate_storage: Migrated balena-engine storage from aufs to overlayfs. \n"
+fi
+
+if [ "$DURING_UPDATE" = 0 ]; then
+	printf "[INFO] balena_migrate_storage: Roll back overlayfs storage migrations... \n"
+	env BALENA_A2O_STORAGE_ROOT=$USER_APP_STORAGE a2o-migrate -debug -rollback
+	env BALENA_A2O_STORAGE_ROOT=$HOST_APP_STORAGE a2o-migrate -debug -rollback
+	printf "[INFO] balena_migrate_storage: Rolled back storage migration. \n"
+fi
+
+sync -f /mnt/data
+sync -f /mnt/sysroot/inactive
