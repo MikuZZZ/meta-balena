@@ -36,6 +36,10 @@ fi
 # Balena health check
 if /usr/lib/balena/balena-healthcheck ; then
 	echo "Rollback: Balena looks healthy"
+	echo "Rollback: Cleaning up storage migration..."
+	env BALENA_A2O_STORAGE_ROOT="/mnt/data/docker" a2o-migrate -debug -cleanup
+	env BALENA_A2O_STORAGE_ROOT="/mnt/sysroot/active/balena" a2o-migrate -debug -cleanup
+	echo "Rollback: Cleaned up storage migration"
 else
 	echo "Rollback: ERROR: Balena is not healthy!"
 	exit 1
