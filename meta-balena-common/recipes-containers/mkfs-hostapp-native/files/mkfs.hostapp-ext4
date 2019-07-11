@@ -5,7 +5,7 @@ set -o errexit
 # We force the PATH to be the standard linux path in order to use the host's
 # docker daemon instead of the result of docker-native. This avoids version
 # mismatches
-HOST_PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+HOST_PATH="/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 DOCKER=$(PATH="$HOST_PATH" which docker)
 
 sysroot="/"
@@ -27,12 +27,12 @@ if [ -z "$tmpdir" ]; then
 fi
 
 if ! [ -f "$input" ]; then
-    echo "File does not exist: $input"
+    echo "Input file does not exist: $input"
     exit 1
 fi
 
 if ! [ -f "$output" ]; then
-    echo "File does not exist: $output"
+    echo "Output file does not exist: $output"
     exit 1
 fi
 

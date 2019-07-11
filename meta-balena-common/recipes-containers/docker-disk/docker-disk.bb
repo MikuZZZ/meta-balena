@@ -52,7 +52,7 @@ do_compile () {
 	# We force the PATH to be the standard linux path in order to use the host's
 	# docker daemon instead of the result of docker-native. This avoids version
 	# mismatches
-	DOCKER=$(PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" which docker)
+	DOCKER=$(PATH="/snap/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" which docker)
 
 	# Generate the data filesystem
 	RANDOM=$$
