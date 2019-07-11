@@ -1,6 +1,14 @@
 Change log
 -----------
 
+# v2.39.0
+## (2019-07-11)
+
+* Reduce data partition size from 1G to 192M [Zubair Lutfullah Kakakhel]
+* resin-proxy-config: add missing reserved ip ranges to default noproxy [Will Boyce]
+* image-resin.bbclass: fixed a typo [Kyle Harding]
+* kernel-resin: Add support for CH340 family of usb-serial adapters [Sebastian Panceac]
+
 # v2.38.2
 ## (2019-06-27)
 

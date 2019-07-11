@@ -1,4 +1,57 @@
 - commits:
+    - subject: Reduce data partition size from 1G to 192M
+      hash: 8813051a800c7c2edcbe1aff9f3a843acb08007e
+      body: |
+        The data partition contains the supervisor which is only about 61M on
+        the pi3. We compress the data partition later on so don't notice these
+        zeros. But lets reduce the size of the data partition to eat less
+        space whenever an uncompressed image is used anywhere. e.g. when
+        extracting the zip to dd or using balena-migrate etc.
+
+        The partition expands on first boot to fill the rest of the disk
+        anyways.
+      footer:
+        Change-type: minor
+        change-type: minor
+        Changelog-entry: Reduce data partition size from 1G to 192M
+        changelog-entry: Reduce data partition size from 1G to 192M
+        Signed-off-by: Zubair Lutfullah Kakakhel <zubair@balena.io>
+        signed-off-by: Zubair Lutfullah Kakakhel <zubair@balena.io>
+      author: Zubair Lutfullah Kakakhel
+    - subject: 'resin-proxy-config: add missing reserved ip ranges to default noproxy'
+      hash: abe12d6cffffdb4ea5188ff6fdaa7ec5588f6ac0
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Will Boyce <will@balena.io>
+        signed-off-by: Will Boyce <will@balena.io>
+      author: Will Boyce
+    - subject: 'image-resin.bbclass: fixed a typo'
+      hash: 5f048a9405b690ad55bbc11ad156afb152675832
+      body: |
+        Fixing a typo in the image size sanity check to ensure the
+        correct calculation of FAT overhead sectors.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kylemharding@gmail.com>
+        signed-off-by: Kyle Harding <kylemharding@gmail.com>
+      author: Kyle Harding
+    - subject: 'kernel-resin: Add support for CH340 family of usb-serial adapters'
+      hash: 416200a2e49a146d8de20791a782e91b94aa49cd
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Changelog-entry: 'kernel-resin: Add support for CH340 family of usb-serial adapters'
+        changelog-entry: 'kernel-resin: Add support for CH340 family of usb-serial adapters'
+        Signed-off-by: Sebastian Panceac <sebastian@balena.io>
+        signed-off-by: Sebastian Panceac <sebastian@balena.io>
+      author: Sebastian Panceac
+  version: 2.39.0
+  date: 2019-07-11T12:01:42.016Z
+- commits:
     - subject: >-
         Update to kernel-modules-headers v0.0.20 to fix missing target modpost
         binary on kernel 5.0.3
